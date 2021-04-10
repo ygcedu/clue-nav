@@ -1,13 +1,57 @@
-.globalHeader {
+/* CSS reset */
+* {
+    box-sizing: border-box;
+}
 
+*:before, *:after {
+    box-sizing: border-box;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+ul, ol {
+    list-style: none;
+}
+
+/* style */
+body {
+    /*border: 1px solid red;*/
+}
+
+.globalHeader {
+    /*border: 1px solid red;*/
+    /*居中：上下边距，左右边距各给20像素*/
+    /*margin:20px 20px;*/
+    margin: 20px;
+    /*弹性布局，中间填充空*/
+    display: flex;
+    justify-content: space-between;
 }
 
 .globalHeader > input {
-
+    width: 100%;
+    margin-right: 10px;
+    height: 40px;
+    /*input内边距左右各10像素*/
+    padding: 0 10px;
+    /*input边框重做*/
+    border: 1px solid #ddd;
+    border-radius: 4px;
 }
 
 .globalHeader > button {
-
+    white-space: nowrap;
+    /*button内边距左右各10像素*/
+    padding: 0 28px;
+    /*抄figma生成代码*/
+    border: none;
+    background: #226FE3;
+    border-radius: 4px;
+    color: white;
+    font-size: 16px;
 }
 
 .globalMain {
@@ -15,25 +59,49 @@
 }
 
 .siteList {
-
+    /*border: 1px solid black;*/
+    display: flex;
+    flex-wrap: wrap;
+    /*左右对齐*/
+    margin: 20px;
+    justify-content: space-between;
 }
 
 .siteList > li {
-
+    /*border: 1px solid red;*/
+    margin-bottom: 10px;
 }
 
 .siteList .site {
-
+    border: 1px solid #ddd;
+    width: 160px;
+    display: flex;
+    justify-content: center;
+    /*水平居中*/
+    align-items: center;
+    /*竖直排列*/
+    flex-direction: column;
+    background: white;
+    border-radius: 4px;
+    /*上下内边距20像素*/
+    padding: 20px 0;
 }
 
 .siteList .site > .logo {
-
+    /*border: 1px solid red;*/
+    width: 64px;
+    height: 64px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 64px;
 }
 
 .siteList .site > .link {
-
+    font-size: 14px;
+    margin-top: 4px;
 }
 
 .siteList .addButton {
-
+    width: 160px;
 }
