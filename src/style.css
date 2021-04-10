@@ -103,5 +103,33 @@ body {
 }
 
 .siteList .addButton {
+    border: 1px solid #ddd;
+    background: white;
     width: 160px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /*上下布局*/
+    flex-direction: column;
+    /*上下内边距20像素*/
+    padding: 20px 0;
+}
+
+.siteList .addButton .icon{
+    width: 56px;
+    height: 56px;
+}
+
+.siteList .addButton .text{
+    font-size: 14px;
+    margin-top: 4px;
+}
+
+.siteList .addButton .icon-wrapper{
+    /*border: 1px solid red;*/
+    width: 64px;
+    height: 64px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
