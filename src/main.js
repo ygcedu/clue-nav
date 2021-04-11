@@ -5,14 +5,16 @@ const xObject = JSON.parse(x)
 
 // 如果cookie内没有x值则取后面的默认值
 const hashMap = xObject || [
-    {logo: 'A', logoType: 'text', url: 'https://www.acfun.cn'},
-    {logo: './images/bilibili.png', logoType: 'image', url: 'https://www.bilibili.com'}
+    {logo: 'A', url: 'https://www.acfun.cn'},
+    {logo: 'B', url: 'https://www.bilibili.com'}
 ]
+
 const simplifyUrl = (url) => {
     return url.replace('https://', '')
         .replace('http://', '')
         .replace('www', '')
 }
+
 const render = () => {
     // 清除除了最后一个新增按钮以外的其他site
     $siteList.find('li:not(.last)').remove()
@@ -22,7 +24,7 @@ const render = () => {
         <li>
             <a href="${node.url}">
                 <div class="site">
-                    <div class="logo">${node.logo[0]}</div>
+                    <div class="logo">${node.logo}</div>
                     <div class="link">${simplifyUrl(node.url)}</div>
                 </div>
             </a>
@@ -41,8 +43,7 @@ $('.addButton').on('click', () => {
     }
     console.log(url)
     hashMap.push({
-        logo: url[0],
-        logoType: 'text',
+        logo: simplifyUrl(url)[0].toUpperCase(),
         url: url
     })
 
