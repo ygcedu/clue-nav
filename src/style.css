@@ -31,18 +31,27 @@ img {
 body {
     /*border: 1px solid red;*/
     background: #EEE;
+    min-width: 100vw;
+    min-height: 100vh;
+    overflow: hidden;
+    background-image: url("images/background.gif");
+    background-size: auto;
+    /*background-repeat: no-repeat;*/
 }
 
 .globalHeader {
     /*border: 1px solid red;*/
     /*居中：上下边距，左右边距各给20像素*/
     /*margin:20px 20px;*/
-    margin: 20px;
+    margin: 0 20px;
+    padding: 20px 0 20px;
 }
 
 @media (min-width: 500px) {
     .globalHeader{
-        margin: 60px 0 100px;
+        /*margin: 60px 0 100px;*/
+        margin: 0 0 100px;
+        padding: 60px 0 0;
     }
 }
 
@@ -66,9 +75,9 @@ body {
 
 /*(手机)宽度大于500px不管*/
 @media (max-width: 500px) {
-    .searchForm {
+    /*.searchForm {
         background: red;
-    }
+    }*/
 }
 
 .searchForm > input {
@@ -180,6 +189,10 @@ body {
 /*悬浮显示关闭按钮*/
 .siteList .site:hover > .close {
     display: block;
+}
+
+.siteList .site:hover {
+    box-shadow: inset 0 0 30px rgba(0,0,0, 0.06);
 }
 
 .siteList .addButton {

@@ -12,7 +12,7 @@ const hashMap = xObject || [
 const simplifyUrl = (url) => {
     return url.replace('https://', '')
         .replace('http://', '')
-        .replace('www', '')
+        .replace('www.', '')
         .replace(/\/.*/, '') // 删除以/开头的内容
 }
 
