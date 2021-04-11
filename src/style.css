@@ -100,6 +100,7 @@ body {
     border-radius: 4px;
     /*上下内边距20像素*/
     padding: 20px 0;
+    position: relative;
 }
 
 .siteList .site > .logo {
@@ -117,6 +118,12 @@ body {
 .siteList .site > .link {
     font-size: 14px;
     margin-top: 4px;
+}
+
+.siteList .site > .close {
+   position: absolute;
+    right: 10px;
+    top: 5px;
 }
 
 .siteList .addButton {

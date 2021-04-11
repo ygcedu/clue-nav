@@ -13,24 +13,41 @@ const simplifyUrl = (url) => {
     return url.replace('https://', '')
         .replace('http://', '')
         .replace('www', '')
-        .replace(/\/.*/,'') // 删除以/开头的内容
+        .replace(/\/.*/, '') // 删除以/开头的内容
 }
 
 const render = () => {
     // 清除除了最后一个新增按钮以外的其他site
     $siteList.find('li:not(.last)').remove()
 
-    hashMap.forEach(node => {
+    hashMap.forEach((node, index) => {
+        console.log(index)
         const $li = $(`
         <li>
-            <a href="${node.url}">
-                <div class="site">
-                    <div class="logo">${node.logo}</div>
-                    <div class="link">${simplifyUrl(node.url)}</div>
+            <div class="site">
+                <div class="logo">${node.logo}</div>
+                <div class="link">${simplifyUrl(node.url)}</div>
+                <div class="close">
+                    <svg class="icon">
+                        <use xlink:href="#icon-close"></use>
+                    </svg>
                 </div>
-            </a>
+            </div>
         </li>
         `).insertBefore($lastLi)
+
+        // 用js来控制页面跳转（更加灵活），替换掉a标签
+        $li.on('click', () => {
+            window.open(node.url)
+        })
+
+        $li.on('click', '.close', (e) => {
+            // console.log('这里')
+            // 阻止冒泡（阻止不了a标签的跳转事件）
+            e.stopPropagation()
+            hashMap.splice(index, 1)
+            render()
+        })
     })
 }
 
