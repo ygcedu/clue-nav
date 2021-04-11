@@ -8,7 +8,11 @@ const hashMap = xObject || [
     {logo: 'A', logoType: 'text', url: 'https://www.acfun.cn'},
     {logo: './images/bilibili.png', logoType: 'image', url: 'https://www.bilibili.com'}
 ]
-
+const simplifyUrl = (url) => {
+    return url.replace('https://', '')
+        .replace('http://', '')
+        .replace('www', '')
+}
 const render = () => {
     // 清除除了最后一个新增按钮以外的其他site
     $siteList.find('li:not(.last)').remove()
@@ -19,7 +23,7 @@ const render = () => {
             <a href="${node.url}">
                 <div class="site">
                     <div class="logo">${node.logo[0]}</div>
-                    <div class="link">${node.url}</div>
+                    <div class="link">${simplifyUrl(node.url)}</div>
                 </div>
             </a>
         </li>
@@ -48,9 +52,9 @@ $('.addButton').on('click', () => {
 
 
 // 监听onbeforeunload事件
-window.onbeforeunload = ()=>{
+window.onbeforeunload = () => {
     console.log('页面关闭了')
     const string = JSON.stringify(hashMap)
     // 本地缓存cookie中保存x变量，值为$siteList字符串
-    localStorage.setItem('x',string)
+    localStorage.setItem('x', string)
 }
