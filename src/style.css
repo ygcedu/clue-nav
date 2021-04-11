@@ -139,6 +139,8 @@ body {
     /*上下内边距20像素*/
     padding: 20px 0;
     position: relative;
+    /*手型*/
+    cursor: pointer;
 }
 
 .siteList .site > .logo {
@@ -162,6 +164,14 @@ body {
     position: absolute;
     right: 10px;
     top: 5px;
+    display: none;
+    /*关闭按钮区域恢复默认鼠标样式*/
+    cursor:default;
+}
+
+/*悬浮显示关闭按钮*/
+.siteList .site:hover > .close {
+    display: block;
 }
 
 .siteList .addButton {
