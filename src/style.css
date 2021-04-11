@@ -105,6 +105,9 @@ body {
     border-radius: 4px;
     color: white;
     font-size: 16px;
+    outline:none;
+    filter: chroma(color=#000000);
+    cursor: pointer;
 }
 
 .globalMain {
