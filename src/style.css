@@ -106,7 +106,7 @@ body {
     flex-wrap: wrap;
     /*左右对齐*/
     margin: 20px;
-    /*justify-content: space-between;*/
+    justify-content: space-between;
 }
 
 @media (min-width: 500px) {
@@ -115,6 +115,7 @@ body {
         margin-left: 0;
         /*负margin为了放下每排最后一个site元素*/
         margin-right: -25px;
+        justify-content: flex-start;
     }
 }
 
@@ -122,7 +123,14 @@ body {
     /*border: 1px solid red;*/
     margin-bottom: 10px;
     /*border: 1px solid blue;*/
-    margin-right: 25px;
+    /*margin-right: 25px;*/
+}
+
+/*只在PC端设置margin-right*/
+@media (min-width: 500px) {
+    .siteList > li {
+        margin-right: 25px;
+    }
 }
 
 .siteList .site {
