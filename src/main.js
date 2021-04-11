@@ -21,11 +21,14 @@ const render = () => {
     $siteList.find('li:not(.last)').remove()
 
     hashMap.forEach((node, index) => {
+
         // console.log(index)
         const $li = $(`
         <li>
             <div class="site">
-                <div class="logo">${node.logo}</div>
+                <div class="logo">
+                    <img class= "favicon" src= ${JSON.stringify("https://www." + simplifyUrl(node.url) + "/favicon.ico")}> 
+                </div>
                 <div class="link">${simplifyUrl(node.url)}</div>
                 <div class="close">
                     <svg class="icon">
@@ -47,6 +50,12 @@ const render = () => {
             e.stopPropagation()
             hashMap.splice(index, 1)
             render()
+        })
+
+        $(".favicon").on("error", (e) => {
+            // e.currentTarget.style.display = 'none';
+            // 找不到图标时,用首字母替换掉图片
+            e.currentTarget.parentElement.innerHTML = node.logo;
         })
     })
 }
@@ -82,7 +91,7 @@ $(document).on('keypress', (e) => {
     console.log(e.key)
     const {key} = e
     for (let i = 0; i < hashMap.length; i++) {
-        if (hashMap[i].logo.toLowerCase() === key){
+        if (hashMap[i].logo.toLowerCase() === key) {
             window.open(hashMap[i].url)
         }
     }
