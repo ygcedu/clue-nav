@@ -16,6 +16,17 @@ ul, ol {
     list-style: none;
 }
 
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+img {
+    /*图片最大不能超过容器*/
+    max-width: 100%;
+    max-height: 100%;
+}
+
 /* style */
 body {
     /*border: 1px solid red;*/
@@ -26,12 +37,15 @@ body {
     /*居中：上下边距，左右边距各给20像素*/
     /*margin:20px 20px;*/
     margin: 20px;
+}
+
+.searchForm {
     /*弹性布局，中间填充空*/
     display: flex;
     justify-content: space-between;
 }
 
-.globalHeader > input {
+.searchForm > input {
     width: 100%;
     margin-right: 10px;
     height: 40px;
@@ -42,7 +56,7 @@ body {
     border-radius: 4px;
 }
 
-.globalHeader > button {
+.searchForm > button {
     white-space: nowrap;
     /*button内边距左右各10像素*/
     padding: 0 28px;
@@ -115,17 +129,17 @@ body {
     padding: 20px 0;
 }
 
-.siteList .addButton .icon{
+.siteList .addButton .icon {
     width: 56px;
     height: 56px;
 }
 
-.siteList .addButton .text{
+.siteList .addButton .text {
     font-size: 14px;
     margin-top: 4px;
 }
 
-.siteList .addButton .icon-wrapper{
+.siteList .addButton .icon-wrapper {
     /*border: 1px solid red;*/
     width: 64px;
     height: 64px;

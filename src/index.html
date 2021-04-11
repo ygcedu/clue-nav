@@ -19,22 +19,30 @@
 </head>
 <body>
 <header class="globalHeader">
-    <input type="text">
-    <button>搜索</button>
+    <form class="searchForm" method="get" action="https://www.baidu.com/s">
+        <input name="wd" type="text">
+        <button type="submit">搜索</button>
+    </form>
 </header>
 <main class="globalMain">
     <ul class="siteList">
         <li>
-            <div class="site">
-                <div class="logo">A</div>
-                <div class="link">acfun.cn</div>
-            </div>
+            <a href="https://www.acfun.cn">
+                <div class="site">
+                    <div class="logo">A</div>
+                    <div class="link">acfun.cn</div>
+                </div>
+            </a>
         </li>
         <li>
-            <div class="site">
-                <div class="logo"></div>
-                <div class="link">blibli.com</div>
-            </div>
+            <a href="https://www.bilibili.com">
+                <div class="site">
+                    <div class="logo">
+                        <img src="./images/bilibili.png" alt="">
+                    </div>
+                    <div class="link">blibli.com</div>
+                </div>
+            </a>
         </li>
         <li>
             <div class="addButton">
