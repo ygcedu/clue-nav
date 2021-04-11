@@ -21,7 +21,7 @@ const render = () => {
     $siteList.find('li:not(.last)').remove()
 
     hashMap.forEach((node, index) => {
-        console.log(index)
+        // console.log(index)
         const $li = $(`
         <li>
             <div class="site">
@@ -77,3 +77,13 @@ window.onbeforeunload = () => {
     // 本地缓存cookie中保存x变量，值为$siteList字符串
     localStorage.setItem('x', string)
 }
+
+$(document).on('keypress', (e) => {
+    console.log(e.key)
+    const {key} = e
+    for (let i = 0; i < hashMap.length; i++) {
+        if (hashMap[i].logo.toLowerCase() === key){
+            window.open(hashMap[i].url)
+        }
+    }
+})
