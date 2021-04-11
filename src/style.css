@@ -40,10 +40,35 @@ body {
     margin: 20px;
 }
 
+@media (min-width: 500px) {
+    .globalHeader{
+        margin: 60px 0 100px;
+    }
+}
+
 .searchForm {
     /*弹性布局，中间填充空*/
     display: flex;
     justify-content: space-between;
+}
+
+/*（PC）小于500px宽度不管*/
+@media (min-width: 500px) {
+    .searchForm {
+        /*宽度大于500px时，与外部的样式合并*/
+        max-width: 400px;
+        /*左右居中(一般配合最大宽度固定或者宽度固定使用)*/
+        /*margin: 0 auto;*/
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+/*(手机)宽度大于500px不管*/
+@media (max-width: 500px) {
+    .searchForm {
+        background: red;
+    }
 }
 
 .searchForm > input {
@@ -70,21 +95,34 @@ body {
 }
 
 .globalMain {
-
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .siteList {
-    /*border: 1px solid black;*/
+    /*border: 1px solid red;*/
     display: flex;
     flex-wrap: wrap;
     /*左右对齐*/
     margin: 20px;
-    justify-content: space-between;
+    /*justify-content: space-between;*/
+}
+
+@media (min-width: 500px) {
+    /*对PC端的左右margin特殊处理（放在后面覆盖前面的样式）*/
+    .siteList {
+        margin-left: 0;
+        /*负margin为了放下每排最后一个site元素*/
+        margin-right: -25px;
+    }
 }
 
 .siteList > li {
     /*border: 1px solid red;*/
     margin-bottom: 10px;
+    /*border: 1px solid blue;*/
+    margin-right: 25px;
 }
 
 .siteList .site {
@@ -121,7 +159,7 @@ body {
 }
 
 .siteList .site > .close {
-   position: absolute;
+    position: absolute;
     right: 10px;
     top: 5px;
 }
