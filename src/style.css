@@ -91,6 +91,10 @@ body {
     border-radius: 4px;
 }
 
+.searchForm > input:focus {
+    outline: none;
+}
+
 .searchForm > button {
     white-space: nowrap;
     /*button内边距左右各10像素*/
