@@ -19,4 +19,5 @@ yarn init -y
 
 ```
 yarn build
+注：window上cmd无法执行rm -rf dist
 ```
