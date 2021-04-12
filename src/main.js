@@ -88,7 +88,7 @@ window.onbeforeunload = () => {
 }
 
 $(document).on('keypress', (e) => {
-    if (!(e.target.localName === "input" )){
+    if (e.target.localName === "body"){
         console.log(e.key)
         const {key} = e
         for (let i = 0; i < hashMap.length; i++) {
