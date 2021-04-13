@@ -101,13 +101,17 @@ body {
     padding: 0 28px;
     /*抄figma生成代码*/
     border: none;
-    background: #226FE3;
+    background-color: #4e6ef2;
     border-radius: 4px;
     color: white;
     font-size: 16px;
-    outline:none;
+    outline: none;
     filter: chroma(color=#000000);
     cursor: pointer;
+}
+
+.searchForm > button:hover {
+    background: #4662D9;
 }
 
 .globalMain {
