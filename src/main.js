@@ -1,3 +1,23 @@
+const options = {
+    format: 'js',
+    idx: '0',
+    n: '1',
+    mkt: 'zh-CN'
+}
+
+let imgUrl = '/proxy/' + 'HPImageArchive.aspx?' + `format=${options.format}&idx=${options.idx}&n=${options.n}&mkt=${options.mkt}`
+//这里proxy就是Nginx匹配规则，可自定义
+
+$.ajax({
+    url:imgUrl,
+    dataType: 'json',
+    type: "GET",
+    success: (req) => {
+        imgUrl = 'https://cn.bing.com' + req.images[0].url
+        document.body.style.backgroundImage=`url(${imgUrl})`;
+    },
+})
+
 const $siteList = $('.siteList')
 const $lastLi = $siteList.find('li.last')
 const x = localStorage.getItem('x')

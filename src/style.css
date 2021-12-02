@@ -34,7 +34,7 @@ body {
     min-width: 100vw;
     min-height: 100vh;
     overflow: hidden;
-    background-image: url("images/background.gif");
+    /*background-image: url("images/background.gif");*/
     background-size: auto;
     /*background-repeat: no-repeat;*/
 }
