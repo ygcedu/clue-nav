@@ -49,22 +49,22 @@ const render = () => {
                 <div class="logo">
                     <img class= "favicon" src= ${JSON.stringify("https://www." + simplifyUrl(node.url) + "/favicon.ico")}> 
                 </div>
-                <div class="link">${simplifyUrl(node.url)}</div>
                 <div class="close">
                     <svg class="icon">
                         <use xlink:href="#icon-close"></use>
                     </svg>
                 </div>
             </div>
+            <div class="link">${simplifyUrl(node.url)}</div>
         </li>
         `).insertBefore($lastLi)
 
         // 用js来控制页面跳转（更加灵活），替换掉a标签
-        $li.on('click', () => {
+        $('.site').on('click', () => {
             window.open(node.url)
         })
 
-        $li.on('click', '.close', (e) => {
+        $('.site').on('click', '.close', (e) => {
             // console.log('这里')
             // 阻止冒泡（阻止不了a标签的跳转事件）
             e.stopPropagation()
