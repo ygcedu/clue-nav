@@ -5,8 +5,8 @@ const options = {
     mkt: 'zh-CN'
 }
 
-let imgUrl = '/proxy/' + 'HPImageArchive.aspx?' + `format=${options.format}&idx=${options.idx}&n=${options.n}&mkt=${options.mkt}`
-//这里proxy就是Nginx匹配规则，可自定义
+let imgUrl = '/bing/' + 'HPImageArchive.aspx?' + `format=${options.format}&idx=${options.idx}&n=${options.n}&mkt=${options.mkt}`
+// 这里 bing 就是 Nginx 匹配规则，可自定义
 
 $.ajax({
     url:imgUrl,
