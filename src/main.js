@@ -54,8 +54,8 @@ const render = () => {
                         <use xlink:href="#icon-close"></use>
                     </svg>
                 </div>
+                <div class="link">${simplifyUrl(node.url)}</div>
             </div>
-            <div class="link">${simplifyUrl(node.url)}</div>
         </li>
         `).insertBefore($lastLi)
 
