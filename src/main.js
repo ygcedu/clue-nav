@@ -1,53 +1,53 @@
 const options = {
-    format: 'js',
-    idx: '0',
-    n: '1',
-    mkt: 'zh-CN'
-}
+  format: 'js',
+  idx: '0',
+  n: '1',
+  mkt: 'zh-CN'
+};
 
-let imgUrl = '/bing/' + 'HPImageArchive.aspx?' + `format=${options.format}&idx=${options.idx}&n=${options.n}&mkt=${options.mkt}`
+let imgUrl = '/bing/' + 'HPImageArchive.aspx?' + `format=${options.format}&idx=${options.idx}&n=${options.n}&mkt=${options.mkt}`;
 // 这里 bing 就是 Nginx 匹配规则，可自定义
 
 $.ajax({
-    url:imgUrl,
-    dataType: 'json',
-    type: "GET",
-    success: (req) => {
-        imgUrl = 'https://cn.bing.com' + req.images[0].url
-        document.body.style.backgroundImage=`url(${imgUrl})`;
-    },
-})
+  url: imgUrl,
+  dataType: 'json',
+  type: 'GET',
+  success: (req) => {
+    imgUrl = 'https://cn.bing.com' + req.images[0].url;
+    document.body.style.backgroundImage = `url(${imgUrl})`;
+  },
+});
 
-const $siteList = $('.siteList')
-const $lastLi = $siteList.find('li.last')
-const x = localStorage.getItem('x')
-const xObject = JSON.parse(x)
+const $siteList = $('.siteList');
+const $lastLi = $siteList.find('li.last');
+const x = localStorage.getItem('x');
+const xObject = JSON.parse(x);
 
 // 如果cookie内没有x值则取后面的默认值
 const hashMap = xObject || [
-    {logo: 'A', url: 'https://www.acfun.cn'},
-    {logo: 'B', url: 'https://www.bilibili.com'}
-]
+  {logo: 'A', url: 'https://www.acfun.cn'},
+  {logo: 'B', url: 'https://www.bilibili.com'}
+];
 
 const simplifyUrl = (url) => {
-    return url.replace('https://', '')
-        .replace('http://', '')
-        .replace('www.', '')
-        .replace(/\/.*/, '') // 删除以/开头的内容
-}
+  return url.replace('https://', '')
+    .replace('http://', '')
+    .replace('www.', '')
+    .replace(/\/.*/, ''); // 删除以/开头的内容
+};
 
 const render = () => {
-    // 清除除了最后一个新增按钮以外的其他site
-    $siteList.find('li:not(.last)').remove()
+  // 清除除了最后一个新增按钮以外的其他site
+  $siteList.find('li:not(.last)').remove();
 
-    hashMap.forEach((node, index) => {
+  hashMap.forEach((node, index) => {
 
-        // console.log(index)
-        const $li = $(`
+    // console.log(index)
+    const $li = $(`
         <li>
             <div class="site">
                 <div class="logo">
-                    <img class= "favicon" src= ${JSON.stringify("https://www." + simplifyUrl(node.url) + "/favicon.ico")}> 
+                    <img class= "favicon" src= ${JSON.stringify('https://www.' + simplifyUrl(node.url) + '/favicon.ico')}> 
                 </div>
                 <div class="close">
                     <svg class="icon">
@@ -57,64 +57,86 @@ const render = () => {
                 <div class="link">${simplifyUrl(node.url)}</div>
             </div>
         </li>
-        `).insertBefore($lastLi)
+        `).insertBefore($lastLi);
 
-        // 用js来控制页面跳转（更加灵活），替换掉a标签
-        $('.site').on('click', () => {
-            window.open(node.url)
-        })
+    // 用js来控制页面跳转（更加灵活），替换掉a标签
+    $('.site').on('click', () => {
+      window.open(node.url);
+    });
 
-        $('.site').on('click', '.close', (e) => {
-            // console.log('这里')
-            // 阻止冒泡（阻止不了a标签的跳转事件）
-            e.stopPropagation()
-            hashMap.splice(index, 1)
-            render()
-        })
+    $('.site').on('click', '.close', (e) => {
+      // console.log('这里')
+      // 阻止冒泡（阻止不了a标签的跳转事件）
+      e.stopPropagation();
+      hashMap.splice(index, 1);
+      render();
+    });
 
-        $(".favicon").on("error", (e) => {
-            // e.currentTarget.style.display = 'none';
-            // 找不到图标时,用首字母替换掉图片
-            e.currentTarget.parentElement.innerHTML = node.logo;
-        })
-    })
-}
+    $('.favicon').on('error', (e) => {
+      // e.currentTarget.style.display = 'none';
+      // 找不到图标时,用首字母替换掉图片
+      e.currentTarget.parentElement.innerHTML = node.logo;
+    });
+  });
+};
 
 // 第一次加载页面渲染$siteList
-render()
+render();
 
 $('.addButton').on('click', () => {
-    let url = window.prompt("请问你要添加的网址是啥？")
-    if (url.indexOf('http') !== 0) {
-        url = 'https://' + url
-    }
-    console.log(url)
-    hashMap.push({
-        logo: simplifyUrl(url)[0].toUpperCase(),
-        url: url
-    })
+  let url = window.prompt('请问你要添加的网址是啥？');
+  if (url.indexOf('http') !== 0) {
+    url = 'https://' + url;
+  }
+  console.log(url);
+  hashMap.push({
+    logo: simplifyUrl(url)[0].toUpperCase(),
+    url: url
+  });
 
-    // 重新渲染$siteList
-    render()
-})
+  // 重新渲染$siteList
+  render();
+});
 
 
 // 监听onbeforeunload事件
 window.onbeforeunload = () => {
-    console.log('页面关闭了')
-    const string = JSON.stringify(hashMap)
-    // 本地缓存cookie中保存x变量，值为$siteList字符串
-    localStorage.setItem('x', string)
-}
+  console.log('页面关闭了');
+  const string = JSON.stringify(hashMap);
+  // 本地缓存cookie中保存x变量，值为$siteList字符串
+  localStorage.setItem('x', string);
+};
 
 $(document).on('keypress', (e) => {
-    if (e.target.localName === "body"){
-        console.log(e.key)
-        const {key} = e
-        for (let i = 0; i < hashMap.length; i++) {
-            if (hashMap[i].logo.toLowerCase() === key) {
-                window.open(hashMap[i].url)
-            }
-        }
+  if (e.target.localName === 'body') {
+    console.log(e.key);
+    const {key} = e;
+    for (let i = 0; i < hashMap.length; i++) {
+      if (hashMap[i].logo.toLowerCase() === key) {
+        window.open(hashMap[i].url);
+      }
     }
-})
+  }
+});
+
+$(document).mousemove((e) => {
+  const clientWidth = document.documentElement.clientWidth;
+  // const clientHeight = document.documentElement.clientHeight;
+  let classes = 'move';
+  const x = e.pageX;
+  const y = e.pageY;
+  if (x < (clientWidth - 138) / 2) {
+    classes += ' left';
+  } else if (x > (clientWidth - 138) / 2 + 138) {
+    classes += ' right';
+  }
+
+  if (y < 43) {
+    classes += ' top';
+  } else if (y > 268) {
+    classes += ' bottom';
+  }
+  $('.move').attr('class', classes);
+});
+
+// 搜索建议：blog.51cto.com/1095221645/1916022

@@ -31,6 +31,7 @@ img {
 body {
     /*border: 1px solid red;*/
     background: #EEE;
+    background-image: linear-gradient(60deg, #29323c 0%, #485563 100%);
     min-width: 100vw;
     min-height: 100vh;
     overflow: hidden;
@@ -70,6 +71,7 @@ body {
         /*margin: 0 auto;*/
         margin-left: auto;
         margin-right: auto;
+        margin-top: 208px;
     }
 }
 
