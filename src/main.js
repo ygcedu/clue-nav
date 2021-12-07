@@ -62,12 +62,12 @@ const smartReminder = (words) => {
 let searchInit = (elements) => {
   //初始化搜索引擎
   // $('.google').addClass('searchSelected');
-  $(`.google`).css(`background`, `#4285F433`).css(`color`, `#4285F4`).find(`svg`).css(`font-size`, `20px`);
-  $searchForm.attr(`action`, `https://www.google.com/search`).find(`input`).attr(`name`, `q`).end().find(`use`).attr(`xlink:href`, `#icon-google`);
+  $(`.google`).css('background', '#4285F433').css(`color`, `#4285F4`).find(`svg`).css(`font-size`, `20px`);
+  $searchForm.attr('action', `https://www.google.com/search`).find(`input`).attr(`name`, `q`).end().find(`use`).attr(`xlink:href`, `#icon-google`);
 
   //添加点击事件
-  elements.find(`li`).on(`click`, (e) => {
-    let className = e.target.getAttribute(`class`);
+  elements.find('li').on('click', (e) => {
+    let className = e.target.getAttribute('class');
     //设置查询地址
     switch (className) {
       case 'google':
@@ -177,9 +177,8 @@ const render = () => {
         e.currentTarget.parentElement.innerHTML = simurl[0].toUpperCase();
       } catch (error) {}
     });
-
-    searchInit($('.searchTab'));
   });
+  searchInit($('.searchTab'));
 };
 
 // 第一次加载页面渲染$siteList
@@ -197,20 +196,24 @@ let submitForm = () => {
   const siteIconsType = $('input[name = "siteIconsType"]:checked').val();
   let siteIcon = $('input[name = "siteIcon"]').val();
 
-  if (siteLink.indexOf('http') !== 0) {
-    siteLink = 'https://' + siteLink;
+  if (siteLink === '') {
+    $('.siteLink').css('background-color', '#f8d9d9').attr('placeholder', '网站地址为必填项！');
+  } else {
+    if (siteLink.indexOf('http') !== 0) {
+      siteLink = 'https://' + siteLink;
+    }
+
+    hashMap.push({
+      name: siteName,
+      url: siteLink,
+      logoType: siteIconsType,
+      logo: siteIcon
+    });
+
+    save();
+    render();
+    closeForm();
   }
-
-  hashMap.push({
-    name: siteName,
-    url: siteLink,
-    logoType: siteIconsType,
-    logo: siteIcon
-  });
-
-  save();
-  render();
-  closeForm();
 };
 
 //form 表单关闭事件
@@ -243,7 +246,7 @@ const addEventListeners = () => {
   $(document).mousemove((e) => {
     const clientWidth = document.documentElement.clientWidth;
     // const clientHeight = document.documentElement.clientHeight;
-    let classes = 'move';
+    let classes = 'head';
     const x = e.pageX;
     const y = e.pageY;
     if (x < (clientWidth - 138) / 2) {
@@ -252,12 +255,12 @@ const addEventListeners = () => {
       classes += ' right';
     }
 
-    if (y < 60) {
+    if (y < 83) {
       classes += ' top';
-    } else if (y > 190) {
+    } else if (y > 196) {
       classes += ' bottom';
     }
-    $('.move').attr('class', classes);
+    $('.head').attr('class', classes);
   });
 
   // 搜索建议：blog.51cto.com/1095221645/1916022
@@ -278,6 +281,10 @@ const addEventListeners = () => {
 
   $('body').on('click', () => {
     $suggests.attr('class', 'search-suggest hide');
+  });
+
+  $('.siteLink').on('focus', (e) => {
+    e.currentTarget.style.backgroundColor = '#fff';
   });
 };
 

@@ -6,19 +6,13 @@
     --beard: #673929;
 }
 
-.logo {
-    position: relative;
-}
-
 /* 绘制人的头像 */
 .head {
-    position: fixed;
-    left: 50%;
-    top: 90px;
+    position: relative;
+    margin: 20px 0;
     width: 110px;
-    height: 155px;
+    min-height: 156px;
     background-color: var(--color1);
-    transform: translate(-50%, -50%);
     border-radius: 55px;
     box-shadow: inset 0 30px var(--hair),
     inset 0 -20px var(--beard);
@@ -200,59 +194,74 @@
     transform: translateX(-50%);
 }
 
-/* 给鼠标移上的四个方向的类名设置 hover 伪类状态，让元素自己自行组合 */
-.move.top ~ .head::before {
+.head.top::before {
     top: 22px;
 }
-.move.top ~ .head .face {
+
+.head.top .face {
     top: 45px;
 }
-.move.top ~ .head .face .eye::before {
+
+.head.top .face .eye::before {
     top: 4px;
 }
-.move.top ~ .head .face .beard {
+
+.head.top .face .beard {
     top: 37px;
 }
-.move.top ~ .head .ear {
-    top: 66px;
-}
-.move.bottom ~ .head::before {
-    top: 30px;
-}
-.move.bottom ~ .head .face {
-    top: 57px;
-}
-.move.bottom ~ .head .face .eye::before {
-    top: 14px;
-}
-.move.bottom ~ .head .face .beard {
-    top: 32px;
-}
-.move.bottom ~ .head .ear {
+
+.head.top .ear {
     top: 66px;
 }
 
-.move.left ~ .head .face {
+.head.bottom::before {
+    top: 30px;
+}
+
+.head.bottom .face {
+    top: 57px;
+}
+
+.head.bottom .face .eye::before {
+    top: 14px;
+}
+
+.head.bottom .face .beard {
+    top: 32px;
+}
+
+.head.bottom .ear {
+    top: 66px;
+}
+
+.head.left .face {
     left: 45%;
 }
-.move.left ~ .head .face .eye::before {
+
+.head.left .face .eye::before {
     left: 40%;
 }
-.move.left ~ .head .ear_l {
+
+.head.left .ear_l {
     left: -11px;
 }
-.move.left ~ .head .ear_r {
+
+.head.left .ear_r {
     right: -16px;
 }
-.move.right ~ .head .face {
+
+.head.right .face {
     left: 55%;
 }
-.move.right ~ .head .face .eye::before {
+
+.head.right .face .eye::before {
     left: 60%;
 }
-.move.right ~ .head .ear_l {
+
+.head.right .ear_l {
     left: -16px;
 }
-.move.right ~ .head .ear_r {
+
+.head.right .ear_r {
     right: -11px;
 }

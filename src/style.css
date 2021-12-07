@@ -1,15 +1,11 @@
-/* CSS reset */
 * {
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 *:before, *:after {
     box-sizing: border-box;
-}
-
-* {
-    margin: 0;
-    padding: 0;
 }
 
 ul, ol {
@@ -27,32 +23,31 @@ img {
     max-height: 100%;
 }
 
-/* style */
-body {
-    /*border: 1px solid red;*/
-    background: #EEE;
-    background-image: linear-gradient(60deg, #29323c 0%, #485563 100%);
-    min-width: 100vw;
-    min-height: 100vh;
+.icon {
+    width: 1em;
+    height: 1em;
+    vertical-align: -0.15em;
+    fill: currentColor;
     overflow: hidden;
-    /*background-image: url("images/background.gif");*/
-    background-size: auto;
-    /*background-repeat: no-repeat;*/
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-image: linear-gradient(60deg, #29323c 0%, #485563 100%);
 }
 
 .globalHeader {
-    /*border: 1px solid red;*/
-    /*居中：上下边距，左右边距各给20像素*/
-    /*margin:20px 20px;*/
-    /*margin: 0 20px;*/
-    /*padding: 20px 0 20px;*/
-    margin-top: 190px;
     max-width: 600px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-left: auto;
-    margin-right: auto;
 }
 
 @media (min-width: 500px) {
@@ -90,7 +85,7 @@ body {
     }*/
 }
 
-.searchForm svg {
+.searchForm > svg {
     font-size: 28px;
     margin: 14px 16px;
     position: absolute;
@@ -117,17 +112,18 @@ body {
 }
 
 .searchForm > button {
-    margin-top: 12px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
     font-size: 16px;
     background: none;
     border: none;
     border-left: 1px solid #E7E7E7;
     padding: 0 24px;
-    line-height: 32px;
     color: #4285F4DD;
     font-weight: bold;
-    position: absolute;
-    align-self: flex-end;
+    right: 0;
+    /*align-self: flex-end;*/
 }
 
 .searchForm > button:hover {
@@ -135,13 +131,19 @@ body {
 }
 
 .globalMain {
-    max-width: 1480px;
-    margin-left: auto;
-    margin-right: auto;
+    margin-top: 20px;
+    margin-bottom: 71px;
+    max-width: 1470px;
+    overflow-y: auto;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE 10+ */
+}
+
+.globalMain::-webkit-scrollbar {
+    display: none; /* Chrome Safari */
 }
 
 .siteList {
-    /*border: 1px solid red;*/
     display: flex;
     flex-wrap: wrap;
     /*左右对齐*/
@@ -160,14 +162,8 @@ body {
 }
 
 .siteList > li {
-    /*border: 1px solid red;*/
     margin-top: 10px;
     margin-bottom: 10px;
-    /*border: 1px solid blue;*/
-    /*margin-right: 25px;*/
-
-    /*display:flex;*/
-    /*flex-direction: column;*/
 }
 
 /*只在PC端设置margin-right*/
@@ -186,26 +182,21 @@ body {
 
 .siteList .site {
     border: 1px solid #ddd;
-    width:160px;
+    width: 160px;
     height: 120px;
     display: flex;
     justify-content: center;
-    /*水平居中*/
     align-items: center;
-    /*竖直排列*/
     flex-direction: column;
     background: white;
-    /*border-radius: 4px;*/
-    border-radius: 16px;
+    border-radius: 20px;
     padding: 16px 0;
     position: relative;
-    /*手型*/
     cursor: pointer;
     opacity: 90%;
 }
 
 .siteList .site > .logo {
-    /*border: 1px solid red;*/
     width: 64px;
     height: 64px;
     display: flex;
@@ -235,12 +226,11 @@ body {
     cursor: default;
 }
 
-/*悬浮显示关闭按钮*/
 .siteList .site:hover > .close {
     display: block;
 }
 
-.close:hover{
+.close:hover {
     background-color: #C0C4CC55;
 }
 
@@ -252,7 +242,6 @@ body {
 .siteList .site:hover,
 .siteList .addButton:hover {
     box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.06),0 2px 10px rgba(51, 51, 51, .15);
-    /*box-shadow: 0 2px 10px rgba(51, 51, 51, .15);*/
 }
 
 .siteList .addButton {
@@ -264,9 +253,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    /*上下布局*/
     flex-direction: column;
-    /*上下内边距20像素*/
     padding: 20px 0;
     opacity: 90%;
 }
@@ -287,11 +274,9 @@ body {
     overflow: hidden;
     text-overflow:ellipsis;
     white-space:nowrap;
-    /*color: #fff;*/
 }
 
 .siteList .addButton .icon-wrapper {
-    /*border: 1px solid red;*/
     width: 64px;
     height: 64px;
     display: flex;
@@ -306,12 +291,11 @@ body {
 .footer {
     position: absolute;
     bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 10px 0 20px 0;
+    opacity: 0.6;
 }
 
 .copyright {
@@ -339,7 +323,7 @@ body {
     align-items: center;
     flex-wrap: nowrap;
     padding: 6px 10px;
-    /*background: #fff;*/
+    cursor: pointer;
     border-radius: 36px;
     transition: .3s;
 }
@@ -350,14 +334,14 @@ body {
     transition: .3s;
 }
 
+.searchSelected svg {
+    font-size: 20px;
+}
+
 .searchSelected {
     background: #4285F433;
     color: #4285F4;
     font-weight: 600;
-}
-
-.searchSelected svg {
-    font-size: 20px;
 }
 
 .search-suggest.hide {
@@ -374,17 +358,17 @@ body {
 
 .search-suggest {
     position: absolute;
+    display: flex;
+    flex-direction: column;
     margin-top: 10px;
     width: 544px;
     left: 50%;
     transform: translateX(-50%);
     top: 56px;
-    display: flex;
-    flex-direction: column;
     overflow: hidden;
     border-radius: 4px;
-    background-color: rgb(255, 255, 255);
-    z-index: 2;
+    background-color: #fff;
+    z-index: 1;
 }
 
 .suggest-item {
@@ -392,13 +376,12 @@ body {
     min-height: 20px;
     display: flex;
     align-items: center;
-    background-color: rgb(255, 255, 255);
+    color: rgb(102, 102, 102);
+    cursor: pointer;
+    padding-left: 28px;
     transition-property: background-color;
     transition-duration: 200ms;
     transition-timing-function: ease;
-    cursor: pointer;
-    color: rgb(102, 102, 102);
-    box-sizing: border-box;
 }
 
 .suggest-item:hover, .suggest-item.active {
