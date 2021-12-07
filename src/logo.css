@@ -10,16 +10,6 @@
     position: relative;
 }
 
-.wrapper {
-    display: grid;
-    position: absolute;
-    width: 100%;
-    height: 268px;
-    /*background-color: #ffbe00;*/
-    /* 网格布局，共三列，宽度都是自动的 */
-    grid-template-columns: auto 138px auto;
-    grid-template-rows: 43px 225px;
-}
 /* 绘制人的头像 */
 .head {
     position: fixed;

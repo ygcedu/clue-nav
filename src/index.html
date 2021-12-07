@@ -76,31 +76,48 @@
     </div>
 </div>
 <header class="globalHeader">
-    <form class="searchForm" method="get" action="https://www.baidu.com/s">
-        <input name="wd" type="text">
+    <ul class="searchTab">
+        <li class="google" id="searchGoogle">
+            <svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-google"></use>
+            </svg>
+            谷歌
+        </li>
+        <li class="baidu" id="searchBaidu">
+            <svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-baidu"></use>
+            </svg>
+            百度
+        </li>
+        <li class="bing" id="searchBing">
+            <svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-bing"></use>
+            </svg>
+            必应
+        </li>
+        <li class="sougou" id="searchSougou">
+            <svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-sougou"></use>
+            </svg>
+            搜狗
+        </li>
+        <li class="duckduckgo" id="searchDuckduckgo">
+            <svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-duckduckgo"></use>
+            </svg>
+            DuckDuckGo
+        </li>
+    </ul>
+    <form class="searchForm" method="get" action="https://www.google.com/search">
+        <svg class="icon" aria-hidden="true">
+            <use xlink:href="#icon-google"></use>
+        </svg>
+        <input name="q" type="text">
         <button type="submit">搜索</button>
     </form>
 </header>
 <main class="globalMain">
     <ul class="siteList">
-        <!--<li>
-            <a href="https://www.acfun.cn">
-                <div class="site">
-                    <div class="logo">A</div>
-                    <div class="link">acfun.cn</div>
-                </div>
-            </a>
-        </li>
-        <li>
-            <a href="https://www.bilibili.com">
-                <div class="site">
-                    <div class="logo">
-                        <img src="./images/bilibili.png" alt="">
-                    </div>
-                    <div class="link">blibli.com</div>
-                </div>
-            </a>
-        </li>-->
         <li class="last">
             <div class="addButton">
                 <div class="icon-wrapper">
@@ -118,7 +135,7 @@
     <a target = "_blank" rel = "noopener" href = "http://beian.miit.gov.cn/">沪ICP备2021016458号</a>
 </footer>
 <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="//at.alicdn.com/t/font_2478464_4cc16r1g0dr.js"></script>
+<script src="//at.alicdn.com/t/font_2478464_19jdnasmk13.js"></script>
 <script src="main.js"></script>
 </body>
 </html>

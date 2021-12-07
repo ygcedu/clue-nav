@@ -44,35 +44,42 @@ body {
     /*border: 1px solid red;*/
     /*居中：上下边距，左右边距各给20像素*/
     /*margin:20px 20px;*/
-    margin: 0 20px;
-    padding: 20px 0 20px;
+    /*margin: 0 20px;*/
+    /*padding: 20px 0 20px;*/
+    margin-top: 236px;
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 @media (min-width: 500px) {
-    .globalHeader {
-        /*margin: 60px 0 100px;*/
-        margin: 0 0 100px;
-        padding: 60px 0 0;
-    }
+    /*.globalHeader {*/
+    /*    !*margin: 60px 0 100px;*!*/
+    /*    margin: 0 0 100px;*/
+    /*    padding: 60px 0 0;*/
+    /*}*/
 }
 
 .searchForm {
     /*弹性布局，中间填充空*/
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
 }
 
 /*（PC）小于500px宽度不管*/
 @media (min-width: 500px) {
-    .searchForm {
-        /*宽度大于500px时，与外部的样式合并*/
-        max-width: 400px;
-        /*左右居中(一般配合最大宽度固定或者宽度固定使用)*/
-        /*margin: 0 auto;*/
-        margin-left: auto;
-        margin-right: auto;
-        margin-top: 208px;
-    }
+    /*.searchForm {*/
+    /*    !*宽度大于500px时，与外部的样式合并*!*/
+    /*    max-width: 400px;*/
+    /*    !*左右居中(一般配合最大宽度固定或者宽度固定使用)*!*/
+    /*    !*margin: 0 auto;*!*/
+    /*    margin-left: auto;*/
+    /*    margin-right: auto;*/
+    /*    margin-top: 208px;*/
+    /*}*/
 }
 
 /*(手机)宽度大于500px不管*/
@@ -82,15 +89,26 @@ body {
     }*/
 }
 
+.searchForm svg {
+    font-size: 28px;
+    margin: 14px 16px;
+    position: absolute;
+    align-self: flex-start;
+}
+
 .searchForm > input {
-    width: 100%;
-    margin-right: 10px;
-    height: 40px;
-    /*input内边距左右各10像素*/
-    padding: 0 10px;
-    /*input边框重做*/
-    border: 1px solid #ddd;
-    border-radius: 4px;
+    width: 92vw;
+    height: 56px;
+    max-width: 600px;
+    font-size: 1em;
+    padding: 0 96px 0 56px;
+    line-height: 1.5;
+    border: 1px solid #E8E8E8;
+    border-radius: 28px;
+    -webkit-appearance: none;
+    -webkit-user-select: auto;
+    transition-property: border, box-shadow;
+    transition-duration: .4s;
 }
 
 .searchForm > input:focus {
@@ -98,22 +116,21 @@ body {
 }
 
 .searchForm > button {
-    white-space: nowrap;
-    /*button内边距左右各10像素*/
-    padding: 0 28px;
-    /*抄figma生成代码*/
-    border: none;
-    background-color: #4e6ef2;
-    border-radius: 4px;
-    color: white;
+    margin-top: 12px;
     font-size: 16px;
-    outline: none;
-    filter: chroma(color=#000000);
-    cursor: pointer;
+    background: none;
+    border: none;
+    border-left: 1px solid #E7E7E7;
+    padding: 0 24px;
+    line-height: 32px;
+    color: #4285F4DD;
+    font-weight: bold;
+    position: absolute;
+    align-self: flex-end;
 }
 
 .searchForm > button:hover {
-    background: #4662D9;
+    cursor: pointer;
 }
 
 .globalMain {
@@ -305,4 +322,39 @@ body {
     margin-top: 6px;
     font-size: 12px;
     color: #fff;
+}
+
+.searchTab {
+    max-width: 414px;
+    display: flex;
+    font-size: 12px;
+    color: #909399;
+    margin-bottom: 16px;
+    height: 32px;
+}
+
+.searchTab li {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    padding: 6px 10px;
+    /*background: #fff;*/
+    border-radius: 36px;
+    transition: .3s;
+}
+
+.searchTab svg {
+    font-size: 0;
+    margin-right: 8px;
+    transition: .3s;
+}
+
+.searchSelected {
+    background: #4285F433;
+    color: #4285F4;
+    font-weight: 600;
+}
+
+.searchSelected svg {
+    font-size: 20px;
 }

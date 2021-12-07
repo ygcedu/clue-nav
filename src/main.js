@@ -20,6 +20,52 @@ const loadWallpaper = () => {
   });
 };
 
+const $searchForm = $('.searchForm');
+
+//初始化搜索引擎并添加点击事件
+let searchInit = (elements) => {
+  //初始化搜索引擎
+  // $('.google').addClass('searchSelected');
+  $(`.google`).css(`background`, `#4285F433`).css(`color`, `#4285F4`).find(`svg`).css(`font-size`, `20px`);
+  $searchForm.attr(`action`, `https://www.google.com/search`).find(`input`).attr(`name`, `q`).end().find(`use`).attr(`xlink:href`, `#icon-google`);
+
+  //添加点击事件
+  elements.find(`li`).on(`click`, (e) => {
+    let className = e.target.getAttribute(`class`);
+    //设置查询地址
+    switch (className) {
+      case 'google':
+        $searchForm.attr(`action`, `https://www.google.com/search`);
+        $searchForm.find(`input`).attr(`name`, `q`);
+        break;
+      case 'baidu':
+        $searchForm.attr(`action`, `https://www.baidu.com/s`);
+        $searchForm.find(`input`).attr(`name`, `wd`);
+        break;
+      case 'bing':
+        $searchForm.attr(`action`, `https://www.bing.com/search`);
+        $searchForm.find(`input`).attr(`name`, `q`);
+        break;
+      case 'sougou':
+        $searchForm.attr(`action`, `https://www.sogou.com/sogou`);
+        $searchForm.find(`input`).attr(`name`, `query`);
+        break;
+      case 'duckduckgo':
+        $searchForm.attr(`action`, `https://duckduckgo.com/`);
+        $searchForm.find(`input`).attr(`name`, `q`);
+        break;
+    }
+
+    //清除当前样式
+    // $(`.searchTab`).removeClass();
+    $(`.searchTab`).find(`li`).attr(`style`, ``).css(`font-weight`, `600`).find(`svg`).css(`font-size`, `0`);
+    //添加点击样式
+    $(`.${className}`).css(`background`, `#4285F433`).css(`color`, `#4285F4`).find(`svg`).css(`font-size`, `20px`);
+    //修改 input 内 icon
+    $searchForm.find(`use`).attr(`xlink:href`, `#icon-${className}`);
+  });
+};
+
 loadWallpaper();
 
 const $siteList = $('.siteList');
@@ -95,6 +141,8 @@ const render = () => {
         e.currentTarget.parentElement.innerHTML = simurl[0].toUpperCase();
       } catch (error) {}
     });
+
+    searchInit($('.searchTab'));
   });
 };
 
@@ -171,7 +219,7 @@ const addEventListeners = () => {
 
     if (y < 43) {
       classes += ' top';
-    } else if (y > 268) {
+    } else if (y > 236) {
       classes += ' bottom';
     }
     $('.move').attr('class', classes);
