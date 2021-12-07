@@ -25,8 +25,8 @@ const xObject = JSON.parse(x);
 
 // 如果cookie内没有x值则取后面的默认值
 const hashMap = xObject || [
-  {logo: 'A', url: 'https://www.acfun.cn'},
-  {logo: 'B', url: 'https://www.bilibili.com'}
+  {name: 'A站', url: 'https://www.acfun.cn', logoType: 'text', logo: 'A'},
+  {name: 'B站', url: 'https://www.bilibili.com', logoType: 'link', logo: 'B'}
 ];
 
 const simplifyUrl = (url) => {
@@ -40,42 +40,50 @@ const render = () => {
   // 清除除了最后一个新增按钮以外的其他site
   $siteList.find('li:not(.last)').remove();
 
-  hashMap.forEach((node, index) => {
+  hashMap.forEach((site, index) => {
+    const simurl = simplifyUrl(site.url);
+    const logo = site.logoType === 'link' ? site.logo : 'https://www.' + simurl + '/favicon.ico';
 
-    // console.log(index)
     const $li = $(`
         <li>
             <div class="site">
                 <div class="logo">
-                    <img class= "favicon" src= ${JSON.stringify('https://www.' + simplifyUrl(node.url) + '/favicon.ico')}> 
+                    <img class= "favicon" src= ${JSON.stringify(logo)}> 
                 </div>
                 <div class="close">
                     <svg class="icon">
                         <use xlink:href="#icon-close"></use>
                     </svg>
                 </div>
-                <div class="link">${simplifyUrl(node.url)}</div>
+                <div class="link">${site.name}</div>
             </div>
         </li>
         `).insertBefore($lastLi);
 
-    // 用js来控制页面跳转（更加灵活），替换掉a标签
-    $('.site').on('click', () => {
-      window.open(node.url);
+    $li.on('click', () => {
+      window.open(site.url);
     });
 
-    $('.site').on('click', '.close', (e) => {
+    // fixme:删除遇到找不到图标时会报错，数据就保存不下来(重复监听？)
+    $li.on('click', '.close', (e) => {
       // console.log('这里')
       // 阻止冒泡（阻止不了a标签的跳转事件）
       e.stopPropagation();
-      hashMap.splice(index, 1);
-      render();
+      console.log(index);
+
+      let result = window.confirm(`是否确认删除 ${site.name} ？`);
+      if (result) {
+        hashMap.splice(index, 1);
+        render();
+      }
     });
 
-    $('.favicon').on('error', (e) => {
+    $li.children('.favicon').on('error', (e) => {
       // e.currentTarget.style.display = 'none';
-      // 找不到图标时,用首字母替换掉图片
-      e.currentTarget.parentElement.innerHTML = node.logo;
+      try {
+        // 找不到图标时,用首字母替换掉图片
+        e.currentTarget.parentElement.innerHTML = simurl[0].toUpperCase();
+      } catch (error) {}
     });
   });
 };
@@ -84,24 +92,49 @@ const render = () => {
 render();
 
 $('.addButton').on('click', () => {
-  let url = window.prompt('请问你要添加的网址是啥？');
-  if (url.indexOf('http') !== 0) {
-    url = 'https://' + url;
-  }
-  console.log(url);
-  hashMap.push({
-    logo: simplifyUrl(url)[0].toUpperCase(),
-    url: url
-  });
-
-  // 重新渲染$siteList
-  render();
+  $('.addSiteForm').addClass('showDialog');
+  $('.mask').css('display', 'block');
 });
 
+//提交表单事件
+let submitForm = () => {
+  const siteName = $('input[name = "siteName"]').val();
+  let siteLink = $('input[name = "siteLink"]').val();
+  const siteIconsType = $('input[name = "siteIconsType"]:checked').val();
+  let siteIcon = $('input[name = "siteIcon"]').val();
+
+  if (siteLink.indexOf('http') !== 0) {
+    siteLink = 'https://' + siteLink;
+  }
+
+  hashMap.push({
+    name: siteName,
+    url: siteLink,
+    logoType: siteIconsType,
+    logo: siteIcon
+  });
+
+  save();
+  render();
+  closeForm();
+};
+
+//form 表单关闭事件
+let closeForm = () => {
+  $('.addSiteForm').removeClass('showDialog');
+  // $addSiteForm.css(`transform`, `translateY(-100%)`);
+  $('.mask').css('display', 'none');
+  // $('.siteIconLink').css('display', 'flex');
+  document.querySelector('.addSiteForm').reset();
+};
 
 // 监听onbeforeunload事件
 window.onbeforeunload = () => {
   console.log('页面关闭了');
+  save();
+};
+
+const save = () => {
   const string = JSON.stringify(hashMap);
   // 本地缓存cookie中保存x变量，值为$siteList字符串
   localStorage.setItem('x', string);
@@ -140,3 +173,13 @@ $(document).mousemove((e) => {
 });
 
 // 搜索建议：blog.51cto.com/1095221645/1916022
+
+//根据 siteIconType 的值改变 表单中 siteIcon 链接项的可见性
+$('input[name = "siteIconsType"]').change(function () {
+  console.log(this.value);
+  if (this.value === 'link') {
+    $('.siteIconLink').css('display', 'flex');
+  } else {
+    $('.siteIconLink').css('display', 'none');
+  }
+});

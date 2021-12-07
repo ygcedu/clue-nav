@@ -25,29 +25,26 @@
 <body>
 <form action="/index.html" class="addSiteForm">
     <ul>
-        <li>
-            <span class="formTitle">添加收藏</span>
-        </li>
+        <h1 class="formTitle">添加网址</h1>
         <li>
             <span>网站名称：</span>
-            <input name="siteName" type="text" placeholder="请输入要收藏的网站名称" value="">
+            <input name="siteName" type="text" placeholder="网站名称" value="">
         </li>
         <li>
             <span>网站地址：</span>
-            <input name="siteLink" type="text" placeholder="请输入要收藏的网址" value="">
+            <input name="siteLink" type="text" placeholder="网站地址" value="">
         </li>
+        <!--注：网址首字母将作为访问快捷键-->
         <li>
-            <span>快捷键：</span>
-            <input name="siteKey" type="text" placeholder="请输入键盘快捷键（仅支持单按键）" value="">
-        </li>
-        <li>
-            <span>图标类型：</span>
             <div class="iconsType">
+                <label for="text">
+                    <input type="radio" id="text" name="siteIconsType" value="text" checked>
+                    <span>自动获取</span>
+                </label>
                 <label for="link">
-                    <input type="radio" id="link" name="siteIconsType" value="link" checked>
-                    <span>logo链接</span></label> <label for="text">
-                <input type="radio" id="text" name="siteIconsType" value="text">
-                <span>网址首字母</span></label>
+                    <input type="radio" id="link" name="siteIconsType" value="link">
+                    <span>logo链接</span>
+                </label>
             </div>
         </li>
         <li class="siteIconLink">
@@ -60,6 +57,7 @@
         </li>
     </ul>
 </form>
+<div class="mask"></div>
 <div class="logo">
     <div class="wrapper">
         <div class="move"></div>
