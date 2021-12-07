@@ -1,22 +1,26 @@
-const options = {
-  format: 'js',
-  idx: '0',
-  n: '1',
-  mkt: 'zh-CN'
-};
+const loadWallpaper = () => {
+  const options = {
+    format: 'js',
+    idx: '0',
+    n: '1',
+    mkt: 'zh-CN'
+  };
 
-let imgUrl = '/bing/' + 'HPImageArchive.aspx?' + `format=${options.format}&idx=${options.idx}&n=${options.n}&mkt=${options.mkt}`;
+  let imgUrl = '/bing/' + 'HPImageArchive.aspx?' + `format=${options.format}&idx=${options.idx}&n=${options.n}&mkt=${options.mkt}`;
 // 这里 bing 就是 Nginx 匹配规则，可自定义
 
-$.ajax({
-  url: imgUrl,
-  dataType: 'json',
-  type: 'GET',
-  success: (req) => {
-    imgUrl = 'https://cn.bing.com' + req.images[0].url;
-    document.body.style.backgroundImage = `url(${imgUrl})`;
-  },
-});
+  $.ajax({
+    url: imgUrl,
+    dataType: 'json',
+    type: 'GET',
+    success: (req) => {
+      imgUrl = 'https://cn.bing.com' + req.images[0].url;
+      document.body.style.backgroundImage = `url(${imgUrl})`;
+    },
+  });
+};
+
+loadWallpaper();
 
 const $siteList = $('.siteList');
 const $lastLi = $siteList.find('li.last');
@@ -28,6 +32,12 @@ const hashMap = xObject || [
   {name: 'A站', url: 'https://www.acfun.cn', logoType: 'text', logo: 'A'},
   {name: 'B站', url: 'https://www.bilibili.com', logoType: 'link', logo: 'B'}
 ];
+
+const save = () => {
+  const string = JSON.stringify(hashMap);
+  // 本地缓存cookie中保存x变量，值为$siteList字符串
+  localStorage.setItem('x', string);
+};
 
 const simplifyUrl = (url) => {
   return url.replace('https://', '')
@@ -128,58 +138,56 @@ let closeForm = () => {
   document.querySelector('.addSiteForm').reset();
 };
 
-// 监听onbeforeunload事件
-window.onbeforeunload = () => {
-  console.log('页面关闭了');
-  save();
-};
+const addEventListeners = () => {
+  // 监听onbeforeunload事件
+  window.onbeforeunload = () => {
+    console.log('页面关闭了');
+    save();
+  };
 
-const save = () => {
-  const string = JSON.stringify(hashMap);
-  // 本地缓存cookie中保存x变量，值为$siteList字符串
-  localStorage.setItem('x', string);
-};
-
-$(document).on('keypress', (e) => {
-  if (e.target.localName === 'body') {
-    console.log(e.key);
-    const {key} = e;
-    for (let i = 0; i < hashMap.length; i++) {
-      if (hashMap[i].logo.toLowerCase() === key) {
-        window.open(hashMap[i].url);
+  $(document).on('keypress', (e) => {
+    if (e.target.localName === 'body') {
+      console.log(e.key);
+      const {key} = e;
+      for (let i = 0; i < hashMap.length; i++) {
+        if (hashMap[i].logo.toLowerCase() === key) {
+          window.open(hashMap[i].url);
+        }
       }
     }
-  }
-});
+  });
 
-$(document).mousemove((e) => {
-  const clientWidth = document.documentElement.clientWidth;
-  // const clientHeight = document.documentElement.clientHeight;
-  let classes = 'move';
-  const x = e.pageX;
-  const y = e.pageY;
-  if (x < (clientWidth - 138) / 2) {
-    classes += ' left';
-  } else if (x > (clientWidth - 138) / 2 + 138) {
-    classes += ' right';
-  }
+  $(document).mousemove((e) => {
+    const clientWidth = document.documentElement.clientWidth;
+    // const clientHeight = document.documentElement.clientHeight;
+    let classes = 'move';
+    const x = e.pageX;
+    const y = e.pageY;
+    if (x < (clientWidth - 138) / 2) {
+      classes += ' left';
+    } else if (x > (clientWidth - 138) / 2 + 138) {
+      classes += ' right';
+    }
 
-  if (y < 43) {
-    classes += ' top';
-  } else if (y > 268) {
-    classes += ' bottom';
-  }
-  $('.move').attr('class', classes);
-});
+    if (y < 43) {
+      classes += ' top';
+    } else if (y > 268) {
+      classes += ' bottom';
+    }
+    $('.move').attr('class', classes);
+  });
 
 // 搜索建议：blog.51cto.com/1095221645/1916022
 
 //根据 siteIconType 的值改变 表单中 siteIcon 链接项的可见性
-$('input[name = "siteIconsType"]').change(function () {
-  console.log(this.value);
-  if (this.value === 'link') {
-    $('.siteIconLink').css('display', 'flex');
-  } else {
-    $('.siteIconLink').css('display', 'none');
-  }
-});
+  $('input[name = "siteIconsType"]').change(function () {
+    console.log(this.value);
+    if (this.value === 'link') {
+      $('.siteIconLink').css('display', 'flex');
+    } else {
+      $('.siteIconLink').css('display', 'none');
+    }
+  });
+};
+
+addEventListeners();
