@@ -1,3 +1,4 @@
+// 加载必应每日壁纸
 const loadWallpaper = () => {
   const options = {
     format: 'js',
@@ -21,6 +22,41 @@ const loadWallpaper = () => {
 };
 
 const $searchForm = $('.searchForm');
+const $suggests = $('.search-suggest');
+// 搜索提示
+const smartReminder = (words) => {
+  if (words) {
+    //组装查询地址
+    let sugurl = 'http://api.bing.com/qsonhs.aspx?type=cb&q=#content#&cb=window.bing.sug';
+    sugurl = sugurl.replace('#content#', words);
+    //定义回调函数
+    window.bing = {
+      sug: function (json) {
+        $suggests.empty();
+        $suggests.attr('class', 'search-suggest show');
+        if (json.AS.Results) {
+          json.AS.Results[0].Suggests.forEach((suggest) => {
+            const $suggest = $(`
+            <li class="suggest-item">
+            ${suggest.Txt}           
+            </li>`).prependTo($suggests);
+
+            $suggest.on('click', $('li'), function () {
+              console.log(this.innerText);
+              $searchForm.children('input').val(this.innerText);
+              $searchForm.submit();
+            });
+          });
+        }
+      }
+    };
+
+    //动态添加JS脚本
+    const script = document.createElement('script');
+    script.src = sugurl;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+};
 
 //初始化搜索引擎并添加点击事件
 let searchInit = (elements) => {
@@ -134,7 +170,7 @@ const render = () => {
       }
     });
 
-    $li.children('.favicon').on('error', (e) => {
+    $li.find('.favicon').on('error', (e) => {
       // e.currentTarget.style.display = 'none';
       try {
         // 找不到图标时,用首字母替换掉图片
@@ -195,7 +231,6 @@ const addEventListeners = () => {
 
   $(document).on('keypress', (e) => {
     if (e.target.localName === 'body') {
-      console.log(e.key);
       const {key} = e;
       for (let i = 0; i < hashMap.length; i++) {
         if (hashMap[i].logo.toLowerCase() === key) {
@@ -217,17 +252,17 @@ const addEventListeners = () => {
       classes += ' right';
     }
 
-    if (y < 43) {
+    if (y < 60) {
       classes += ' top';
-    } else if (y > 236) {
+    } else if (y > 190) {
       classes += ' bottom';
     }
     $('.move').attr('class', classes);
   });
 
-// 搜索建议：blog.51cto.com/1095221645/1916022
+  // 搜索建议：blog.51cto.com/1095221645/1916022
 
-//根据 siteIconType 的值改变 表单中 siteIcon 链接项的可见性
+  //根据 siteIconType 的值改变 表单中 siteIcon 链接项的可见性
   $('input[name = "siteIconsType"]').change(function () {
     console.log(this.value);
     if (this.value === 'link') {
@@ -236,6 +271,16 @@ const addEventListeners = () => {
       $('.siteIconLink').css('display', 'none');
     }
   });
+
+  $('.searchForm > input').keydown(function () {
+    smartReminder(this.value);
+  });
+
+  $('body').on('click', () => {
+    $suggests.attr('class', 'search-suggest hide');
+  });
 };
 
 addEventListeners();
+
+

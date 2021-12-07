@@ -14,7 +14,7 @@
 .head {
     position: fixed;
     left: 50%;
-    top: 120px;
+    top: 90px;
     width: 110px;
     height: 155px;
     background-color: var(--color1);
