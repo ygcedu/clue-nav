@@ -35,13 +35,15 @@ const smartReminder = (words) => {
         $suggests.empty();
         $suggests.attr('class', 'search-suggest show');
         if (json.AS.Results) {
-          json.AS.Results[0].Suggests.forEach((suggest) => {
-            const $suggest = $(`<li class="suggest-item">${suggest.Txt}</li>`).prependTo($suggests);
-
-            $suggest.on('click', $('li'), function () {
-              $searchForm.children('input').val(this.innerText);
-              $searchForm.submit();
-            });
+          const results = json.AS.Results[0].Suggests;
+          results.forEach((suggest) => {
+            $(`<li class="suggest-item">${suggest.Txt}</li>`).prependTo($suggests);
+          });
+          // 事件委托
+          $suggests.on('click', '.suggest-item', (e) => {
+            const $li = $(e.currentTarget)[0];
+            $searchForm.children('input').val($li.innerText);
+            // $searchForm.submit();
           });
         }
       }
