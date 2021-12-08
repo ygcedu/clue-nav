@@ -134,7 +134,7 @@ body {
 .globalMain {
     margin-top: 20px;
     margin-bottom: 71px;
-    max-width: 1470px;
+    /*max-width: 1470px;*/
     overflow-y: auto;
     scrollbar-width: none; /* Firefox */
     -ms-overflow-style: none; /* IE 10+ */
@@ -160,19 +160,20 @@ body {
         margin-right: -25px;
         justify-content: flex-start;
     }
+
+    .siteList > li {
+        margin-left: 25px;
+        margin-right: 25px;
+    }
+
+    .globalMain {
+        width: 1470px;
+    }
 }
 
 .siteList > li {
     margin-top: 10px;
     margin-bottom: 10px;
-}
-
-/*只在PC端设置margin-right*/
-@media (min-width: 500px) {
-    .siteList > li {
-        margin-left: 25px;
-        margin-right: 25px;
-    }
 }
 
 .siteList > li:hover {
