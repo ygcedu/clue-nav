@@ -41,6 +41,7 @@ body {
     flex-direction: column;
     align-items: center;
     background-image: linear-gradient(60deg, #29323c 0%, #485563 100%);
+    font-family: "PingFang SC", "Microsoft Yahei", Helvetica, Arial, sans-serif;
 }
 
 .globalHeader {

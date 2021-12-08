@@ -24,37 +24,56 @@ const loadWallpaper = () => {
 const $searchForm = $('.searchForm');
 const $suggests = $('.search-suggest');
 // 搜索提示
-const smartReminder = (words) => {
-  if (words) {
-    //组装查询地址
-    let sugurl = 'http://api.bing.com/qsonhs.aspx?type=cb&q=#content#&cb=window.bing.sug';
-    sugurl = sugurl.replace('#content#', words);
-    //定义回调函数
-    window.bing = {
-      sug: function (json) {
-        $suggests.empty();
-        $suggests.attr('class', 'search-suggest show');
-        if (json.AS.Results) {
-          json.AS.Results[0].Suggests.forEach((suggest) => {
-            const $suggest = $(`
-            <li class="suggest-item">
-            ${suggest.Txt}           
-            </li>`).prependTo($suggests);
-
-            $suggest.on('click', $('li'), function () {
-              console.log(this.innerText);
-              $searchForm.children('input').val(this.innerText);
-              $searchForm.submit();
-            });
-          });
-        }
+const smartReminder = (words, key) => {
+  const active = $('.suggest-item.active');
+  let text = '';
+  switch (key) {
+    case 'ArrowUp':
+      if (active.length > 0) {
+        active.removeClass('active');
+        text = active.prev().addClass('active').text();
+      } else {
+        text = $('.search-suggest>.suggest-item:last-child').addClass('active').text();
       }
-    };
+      $searchForm.children('input').val(text);
+      break;
+    case 'ArrowDown':
+      if (active.length > 0) {
+        active.removeClass('active');
+        text = active.next().addClass('active').text();
+      } else {
+        text = $('.search-suggest>.suggest-item:first-child').addClass('active').text();
+      }
+      $searchForm.children('input').val(text);
+      break;
+    default:
+      if (words) {
+        //组装查询地址
+        let sugurl = 'http://api.bing.com/qsonhs.aspx?type=cb&q=#content#&cb=window.bing.sug';
+        sugurl = sugurl.replace('#content#', words);
+        //定义回调函数
+        window.bing = {
+          sug: function (json) {
+            $suggests.empty();
+            $suggests.attr('class', 'search-suggest show');
+            if (json.AS.Results) {
+              json.AS.Results[0].Suggests.forEach((suggest) => {
+                const $suggest = $(`<li class="suggest-item">${suggest.Txt}</li>`).prependTo($suggests);
 
-    //动态添加JS脚本
-    const script = document.createElement('script');
-    script.src = sugurl;
-    document.getElementsByTagName('head')[0].appendChild(script);
+                $suggest.on('click', $('li'), function () {
+                  $searchForm.children('input').val(this.innerText);
+                  $searchForm.submit();
+                });
+              });
+            }
+          }
+        };
+
+        //动态添加JS脚本
+        const script = document.createElement('script');
+        script.src = sugurl;
+        document.getElementsByTagName('head')[0].appendChild(script);
+      }
   }
 };
 
@@ -275,8 +294,8 @@ const addEventListeners = () => {
     }
   });
 
-  $('.searchForm > input').keydown(function () {
-    smartReminder(this.value);
+  $('.searchForm > input').keydown(function (e) {
+    smartReminder(this.value, e.key);
   });
 
   $('body').on('click', () => {
