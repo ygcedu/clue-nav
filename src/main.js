@@ -232,7 +232,7 @@ const addEventListeners = () => {
     if (e.target.localName === 'body') {
       const {key} = e;
       for (let i = 0; i < hashMap.length; i++) {
-        if (hashMap[i].logo.toLowerCase() === key) {
+        if (simplifyUrl(hashMap[i].url)[0].toLowerCase() === key) {
           window.open(hashMap[i].url);
         }
       }
