@@ -1,9 +1,9 @@
 {
-  "name": "nav-1",
+  "name": "clue-nav",
   "version": "1.0.0",
-  "description": "前航 - 前端导航网站",
+  "description": "寻迹网址导航",
   "main": "index.js",
-  "repository": "https://github.com/ygcedu/nav-1.git",
+  "repository": "https://github.com/ygcedu/clue-nav",
   "author": "ygc <937601471@qq.com>",
   "license": "MIT",
   "scripts": {
